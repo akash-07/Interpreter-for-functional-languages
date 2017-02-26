@@ -81,8 +81,8 @@ clex (c:cs) line
 		num_Token = c : takeWhile isDigit cs
 		restDigit_cs = dropWhile isDigit cs
 		isNotNewLine c = c /= '\n'
-		isComment c = c == '-'
-		isNewLine c = c == '\n'
+		isComment c = c == '-'                               --Comment it or subtraction will be affected
+		isNewLine c = c == '\n' 
 clex [] line = []
 
 isIdChar :: Char -> Bool
