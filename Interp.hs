@@ -81,9 +81,15 @@ clex (c:cs) line
 		num_Token = c : takeWhile isDigit cs
 		restDigit_cs = dropWhile isDigit cs
 		isNotNewLine c = c /= '\n'
-		isComment c = c == '-'                               --Comment it or subtraction will be affected
-		isNewLine c = c == '\n' 
+		isComment c = c == '-'
+		isNewLine c = c == '\n'
 clex [] line = []
+
+clex_getToken :: [(Token,Int)] -> [Token]
+clex_getToken list = map getFirst list
+
+getFirst :: (Token,Int)->Token
+getFirst (token,line) = token
 
 isIdChar :: Char -> Bool
 isIdChar c = isAlphaNum c || c == '_'
@@ -91,13 +97,15 @@ isIdChar c = isAlphaNum c || c == '_'
 
 type Parser a = [Token] -> [(a,[Token])]
 
+--pLit has been defined down again with the help of pSat
 pLit :: String -> Parser String
-pLit s (tok:toks) = if s == tok then [(s,toks)] else []
-pLit s  [] 		  = []
+--pLit s (tok:toks) = if s == tok then [(s,toks)] else []
+--pLit s  [] 		  = []
 
+--pVar has been defined again below with the help of pSat
 pVar :: Parser String
-pVar (tok:toks) = [(tok,toks)]
-pVar [] = []
+--pVar (tok:toks) = [(tok,toks)]
+--pVar [] = []
 
 pAlt :: Parser a -> Parser a -> Parser a
 pAlt p1 p2 toks = (p1 toks) ++ (p2 toks)
@@ -108,6 +116,7 @@ pHelloOrGoodbye = (pLit "hello") `pAlt` (pLit "goodbye")
 pThen :: (a->b->c) -> Parser a-> Parser b-> Parser c
 pThen combine p1 p2 toks = [(combine v1 v2, toks2) | (v1,toks1) <- p1 toks, (v2, toks2) <- p2 toks1]
 
+--pGreeting has been defined down again with the help of pThen3
 pGreeting :: Parser (String,String)
 --pGreeting = pThen mk_pair pHelloOrGoodbye pVar where
 --				mk_pair hg name = (hg,name)
@@ -132,3 +141,43 @@ pZeroOrMore p = (pOneOrMore p) `pAlt` (pEmpty [])
 
 pGreetings :: Parser [(String, String)]
 pGreetings = pZeroOrMore pGreeting
+
+pApply :: Parser a->(a->b)->Parser b
+pApply p1 fn toks = [(fn v1,toks1)|(v1,toks1)<-p1 toks]
+
+pGreetingsN :: Parser Int
+pGreetingsN = (pZeroOrMore pGreeting) `pApply` length
+
+pOneOrMoreWithSep :: Parser a -> Parser b -> Parser [a]
+pOneOrMoreWithSep p1 p2 = pThen3 combine_pOneOrMoreWithSep p1 p2 (pZeroOrMoreWithSep p1 p2)
+
+pZeroOrMoreWithSep :: Parser a->Parser b->Parser [a]
+pZeroOrMoreWithSep p1 p2 = (pOneOrMoreWithSep p1 p2) `pAlt` (pEmpty [])
+
+combine_pOneOrMoreWithSep :: (a->b->[a]->[a])
+combine_pOneOrMoreWithSep a b c = a:c
+
+pSat :: (String -> Bool) -> Parser String
+pSat fn [] = []
+pSat fn (tok:toks) = if(fn tok) then [(tok,toks)] else [] 
+
+-- pLit defined here again
+pLit s = pSat (==s)
+
+keywords :: [String]
+keywords = ["let","letrec","case","in","of","Pack"]
+
+--pVar defined here again
+pVar s = pSat (checkForKeyword keywords) s
+
+checkForKeyword :: [String] -> String -> Bool
+checkForKeyword list str = str `notElem` list && (isAlpha(str!!0))
+
+pNum :: Parser Int
+pNum = (pSat checkStringIsNum) `pApply` fn
+
+fn :: String -> Int
+fn str = read str::Int
+
+checkStringIsNum :: String -> Bool
+checkStringIsNum str = (all isDigit str)
