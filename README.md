@@ -128,7 +128,98 @@ The pretty printer makes the ouput more readable. We will be developing our own 
 =======================================================================================================================================
 ## Parser
 
+This forms the most important step in building an Interpreter as we need to convert the tokenized strings into a form that can be understood by our machine.
+
+- We begin with defining Expr data type for core language expressions as:
+
+```haskell
+  data Expr a = EVar Name 
+     | ENum Int 
+     | EConstr Int Int
+     | EAp (Expr a) (Expr a )
+     | ELet IsRec [(a,Expr a)] (Expr a)
+     | ECase (Expr a) [Alter a]
+     | ELam [a] (Expr a)
+     deriving Show
+```
+This type handles all basic exprssion in the core language.
+
+- Next we need define a few types which we will be using throughout the parser like
+  ```haskell
+  type Name = String
+  type CoreExpr = Expr Name
+  type Program a = [ScDefn a]
+  type CoreProgram = Program Name
+  type ScDefn a = (Name,[a],Expr a)
+  type CoreScDefn = ScDefn Name
+  type Token = String
+  type Parser a = [Token] -> [(a,[Token])]
+  ```
+  This basically tells you that CoreExpr is an expression of type Name which is an alias for String.
+  Similarly we can see that a Program is a  list of supercombinator definitions and SuperCombinator definitions are represented as a  tuple containing name, list of variables and and expression.  
+  
+ - In all the following text 'p' stands for a parser. We have a few parser combinators like:
+ 
+  - pAlt tries different parsers and returns a list. In other words it's like '|' in a Production rule like hg -> hello | goodbye
+
+   ```haskell
+   pAlt :: Parser a -> Parser a -> Parser a
+    ```
+  - pThen parses using p1 and then p2 on tokens returned by p1. It's like A -> BC, so it will check for BC.
+
+   ```haskell
+   pThen :: (a->b->c) -> Parser a-> Parser b-> Parser c
+    ```
+   Similarly we have pThen3 and pThen4.
+  
+  - Checks for one or more occurences of a particular parser like in A -> BBBBC , so here B is repeated and parsed by pOneOrMore
+    
+    ```haskell
+    pOneOrMore :: Parser a -> Parser [a]
+    ```
+    Similarly we have pZeroOrMore, pOneOrMoreWithSep , pEmpty, pSat.
+    
+  - Converts from Parser of type a to type b using a function as input
+
+     ```haskell
+     pApply :: Parser a->(a->b)->Parser b
+     ```
+  
+  - `pLit` checks for a literal, `pVar` checks for a variable and `pNum` checks for a Number.
+   
+    ``haskell
+    pLit :: String -> Parser String
+    pVar :: Parser String
+    pNum :: Parser Int
+    ``
+    
+ - Once these parser combinators are done, we define production rules using them as: 
+   
+   ```haskell
+   pProgram :: Parser CoreProgram
+   pProgram = pOneOrMoreWithSep pSc (pLit ";")
+   
+   ```
+   Now what this tells is a program is set a of one or more supercombinators separated with literal ";" . So it resembles the production rule program -> sc1 ; sc2; sc3; .... scn   
+ 
+ - We then define pDefn, pDefns, pExpr, pAexpr, pExprArith1 and others in a similar manner.
+ 
+   Thus the parser converts tokenized strings into an ouput that can be evaluated by our machine.
+ 
+   ### Example:
+ 
+   ```haskell
+   x = 3;
+   square x = x*x; 
+   
+   == After parsing ==
+   
+   [("x",[],ENum 3),("square",["x"],EAp (EAp (EVar "*") (EVar "x")) (EVar "x"))]
+   ```
+
 =======================================================================================================================================
 ## Template Instantiation Machine
+
+This part is yet to be made.
 
 ===========================================================================================================================================
