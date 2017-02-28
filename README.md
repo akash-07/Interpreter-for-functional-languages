@@ -1,6 +1,6 @@
 # The_Interpreter
 
-# TABLE OF CONTENTS
+# Table Of Contents
 - [Overview](#overview)
 - [Overview of Functional Language Constructs](#overview-of-functional-language-constructs)
 - [Pretty Printer](#pretty-printer)
@@ -105,6 +105,7 @@ The pretty printer makes the ouput more readable. We will be developing our own 
  ```haskell
  keywords :: [String]
  keywords = ["let","letrec","case","in","of","Pack"]
+ 
  binop :: [String]
  binop = ["=","<",">","<=",">=","-","+","/","*","|","&"]
  ```
