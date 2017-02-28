@@ -108,8 +108,19 @@ The pretty printer makes the ouput more readable. We will be developing our own 
  binop :: [String]
  binop = ["=","<",">","<=",">=","-","+","/","*","|","&"]
  ```
-
-- Comments will be ignored while lexing which are identified as beginning with #.
+ ### Example
+ 
+ ```haskell
+ square x = x*x
+ main = square 2
+ ```
+ This will we tokenized as
+ 
+ ```haskell
+ ["square","x","=","x","*","x","main","=","square","2"]
+ ```
+- All the whitespace is ignored while lexing.
+- Comments will be ignored while lexing which are identified as beginning with `#`.
 - Variables are String beginning with an alphabet followed by alphanumeric characters or underscores.
 - Thus lexing converts input program into a list of tokens which is then fed to the parser.
 
