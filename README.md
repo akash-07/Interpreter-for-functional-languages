@@ -9,11 +9,11 @@
 - [Template Instantiation Machine](#template-instantiation-machine)
 
 ===========================================================================================================================================
-## Overview
-
-#### The Interpreter for Haskell would be built in four steps. 
+## Overview 
 
 This implementation takes some program written in simple Core language and executes it. The Core language forms the basis for buildling Interpreters for high level functional languages such as Haskell whose constructs form the 'front end' of the Interpreter. Our initial focus is on building the back end which consists of constructs in the Core language. 
+
+#### The Interpreter for Haskell would be built in four steps.
 
 - The first step includes understanding syntax and sematics of haskell and knowing how it's different constructs would be handled by  the Interpreter. `CoreProgram` and `CoreExpression` will form the first of the two data types we declare for accepting core programs and expressions as input.
 - Secondly, we would be designing a pretty printer to make the output readable and elegant.
@@ -24,7 +24,7 @@ This implementation takes some program written in simple Core language and execu
 
 =======================================================================================================================================
 ## Overview Of Functional Language Constructs
-
+-The Program is considered to be set
 =======================================================================================================================================
 ## Pretty Printer
 
