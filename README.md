@@ -226,4 +226,12 @@ The functional program is executed by evaluating an expression. The expression i
 
 This part is yet to be made.
 
-===========================================================================================================================================
+=======================================================================================================================================
+## References
+
+- Special thanks to bollu and his Interpreter TIMI: https://github.com/bollu/timi
+- Implementing functional Languages, a tutorial by Peyton Jones and David Lester.
+
+=======================================================================================================================================
+
+Currently Working On : Template Instantiation Machine.
