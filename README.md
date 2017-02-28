@@ -1,11 +1,11 @@
 # The_Interpreter
 
 # TABLE OF CONTENTS
-1) Overview
-2) Pretty Printer
-3) Lexer
-4) Parser
-5) Template Instantiation Machine
+- [Overview]
+- [Pretty Printer]
+- [Lexer]
+- [Parser]
+- [Template Instantiation Machine]
 
 ===========================================================================================================================================
 #### Overview
