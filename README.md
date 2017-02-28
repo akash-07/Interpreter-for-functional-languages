@@ -101,12 +101,14 @@ The pretty printer makes the ouput more readable. We will be developing our own 
 
 - The Lexer essentially converts an input string into a list of Tokens. Tokens are nothing but indivdual units of String which cannot be further divided. So `let` ,` =` , `25` ,etc are essentially tokens where `let` is keyword in core language, `=` represents the equal to sign and `25` is just an Integer.   
 - So we define a set of keywords and operators to be considered while lexing as:
+ 
  ```haskell
  keywords :: [String]
  keywords = ["let","letrec","case","in","of","Pack"]
  binop :: [String]
  binop = ["=","<",">","<=",">=","-","+","/","*","|","&"]
  ```
+
 - Comments will be ignored while lexing which are identified as beginning with #.
 - Variables are String beginning with an alphabet followed by alphanumeric characters or underscores.
 - Thus lexing converts input program into a list of tokens which is then fed to the parser.
