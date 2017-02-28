@@ -198,8 +198,8 @@ This type handles all basic exprssion in the core language.
    ```haskell
    pProgram :: Parser CoreProgram
    pProgram = pOneOrMoreWithSep pSc (pLit ";")
-   
    ```
+   
    Now what this tells is a program is set a of one or more supercombinators separated with literal ";" . So it resembles the production rule program -> sc1 ; sc2; sc3; .... scn   
  
  - We then define pDefn, pDefns, pExpr, pAexpr, pExprArith1 and others in a similar manner.
