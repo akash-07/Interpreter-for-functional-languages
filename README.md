@@ -88,7 +88,9 @@ This implementation takes some program written in simple Core language and execu
   ```
   
 == Note == 
+
 Lamda abstractions and case expressions are not evaluated by this machine as they require certain different implementations.
+
 =======================================================================================================================================
 ## Pretty Printer
 
