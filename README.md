@@ -10,7 +10,8 @@ Interpreter for functional languages using template instantiation.
 - [Parser](#parser)
 - [Template Instantiation Machine](#template-instantiation-machine)
 - [References](#references)
-===========================================================================================================================================
+
+=======================================================================================================================================
 ## Overview 
 
 This implementation takes some program written in simple Core language and executes it. The Core language forms the basis for buildling Interpreters for high level functional languages such as Haskell whose constructs form the 'front end' of the Interpreter. Our initial focus is on building the back end which consists of constructs in the Core language. 
