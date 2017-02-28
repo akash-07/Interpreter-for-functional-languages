@@ -1,4 +1,6 @@
-# The_Interpreter
+# Haskell asks, "Can I Interpret myself?"
+
+Interpreter for functional languages using template instantiation.  
 
 # Table Of Contents
 - [Overview](#overview)
@@ -132,19 +134,19 @@ This forms the most important step in building an Interpreter as we need to conv
 
 - We begin with defining Expr data type for core language expressions as:
 
-```haskell
-  data Expr a = EVar Name 
-     | ENum Int 
-     | EConstr Int Int
-     | EAp (Expr a) (Expr a )
-     | ELet IsRec [(a,Expr a)] (Expr a)
-     | ECase (Expr a) [Alter a]
-     | ELam [a] (Expr a)
-     deriving Show
-```
-This type handles all basic exprssion in the core language.
+   ```haskell
+     data Expr a = EVar Name 
+        | ENum Int 
+        | EConstr Int Int
+        | EAp (Expr a) (Expr a )
+        | ELet IsRec [(a,Expr a)] (Expr a)
+        | ECase (Expr a) [Alter a]
+        | ELam [a] (Expr a)
+        deriving Show
+   ```
+  This type handles all basic exprssion in the core language.
 
-- Next we need define a few types which we will be using throughout the parser like
+- Next we need to define a few types which we will be using for parsing like
   ```haskell
   type Name = String
   type CoreExpr = Expr Name
@@ -155,7 +157,7 @@ This type handles all basic exprssion in the core language.
   type Token = String
   type Parser a = [Token] -> [(a,[Token])]
   ```
-  This basically tells you that CoreExpr is an expression of type Name which is an alias for String.
+  This basically tells you that CoreExpr is an expression of type `Name` which is an alias for String.
   Similarly we can see that a Program is a  list of supercombinator definitions and SuperCombinator definitions are represented as a  tuple containing name, list of variables and and expression.  
   
  - In all the following text 'p' stands for a parser. We have a few parser combinators like:
@@ -219,6 +221,8 @@ This type handles all basic exprssion in the core language.
 
 =======================================================================================================================================
 ## Template Instantiation Machine
+
+The functional program is executed by evaluating an expression. The expression is represented by a graph whose evaluation takes place by carrying out a sequence of reductions. 
 
 This part is yet to be made.
 
