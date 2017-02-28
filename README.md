@@ -1,11 +1,11 @@
 # The_Interpreter
 
 # TABLE OF CONTENTS
-- [Overview]
-- [Pretty Printer]
-- [Lexer]
-- [Parser]
-- [Template Instantiation Machine]
+- [Overview](#Overview)
+- [Pretty Printer](#Pretty Printer)
+- [Lexer](#Lexer)
+- [Parser](#Parser)
+- [Template Instantiation Machine](#Template Instantiation Machine)
 
 ===========================================================================================================================================
 #### Overview
@@ -16,5 +16,17 @@ The Interpreter for Haskell would be built in four steps.
 ♦ Thirdly, the Lexer would be made which would convert the input Program String into a list of Tokens.
 ♦ Fourthly, this list of tokens would be parsed to convert it into a format accepted by the Machine or as defined in the Interpreter.
 ♦ Lastly, the parsed tokens would then be evaluated by a graph reducer based on template instantiation.
+
+===========================================================================================================================================
+#### Pretty Printer
+
+===========================================================================================================================================
+#### Lexer
+
+===========================================================================================================================================
+#### Parser
+
+===========================================================================================================================================
+#### Template Instantiation Machine
 
 ===========================================================================================================================================
