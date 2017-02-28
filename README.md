@@ -24,7 +24,21 @@ This implementation takes some program written in simple Core language and execu
 
 =======================================================================================================================================
 ## Overview Of Functional Language Constructs
--The Program is considered to be set
+
+- The Program is considered to be set of Supercombinator definitions.Each supercombinator is an set of one or more variables evaluating to an expression. Supercombinators can define functions taking any number of arguements. The production rules look like ->
+`program -> sc1 ; sc2 ; .... scn`
+`sc -> var var1 var2 ... varn = expr`
+**Let**
+  ```haskell
+  let <...bindigs....> in <expr>
+  ```
+  ### Example:
+  ```haskell
+  > let x = 5 in x*x
+  === Final value  = 25 ===
+  ```
+  **Function Application**
+  
 =======================================================================================================================================
 ## Pretty Printer
 
