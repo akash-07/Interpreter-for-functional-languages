@@ -9,7 +9,7 @@ Interpreter for functional languages using template instantiation.
 - [Lexer](#lexer)
 - [Parser](#parser)
 - [Template Instantiation Machine](#template-instantiation-machine)
-
+- [References](#references)
 ===========================================================================================================================================
 ## Overview 
 
