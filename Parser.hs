@@ -1,3 +1,5 @@
+module Parser where
+
 --Expr is Data type for Core language Expressions
 import Data.Char
 import Data.List
